@@ -1,0 +1,39 @@
+server:
+  port: 8807
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8801/eureka/
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+      - id: mcdsCore11
+        uri: lb://MCDSCORE
+        predicates:
+          - Path=/mcds/**
+        filters:
+          - StripPrefix=1
+          - name: Hystrix
+            args:
+              name: fallback
+              fallbackUri: forward:/fallback
+      - id: orderCore11
+        uri: lb://ordercore
+        predicates:
+          - Path=/order/**
+        filters:
+          - StripPrefix=1
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

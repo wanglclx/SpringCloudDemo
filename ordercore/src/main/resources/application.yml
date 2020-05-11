@@ -1,0 +1,11 @@
+server:
+  port: 8803
+
+spring:
+  application:
+    name: ordercore
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8801/eureka/

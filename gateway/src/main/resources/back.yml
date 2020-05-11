@@ -1,0 +1,9 @@
+      - id: path_route_1
+        uri: https://www.baidu.com
+        predicates:
+        - Between=2020-04-21T00:00:00+08:00[Asia/Shanghai], 2020-04-22T10:00:00+08:00[Asia/Shanghai]
+
+              - id: mcdsCore11
+                uri: lb://MCDSCORE
+                predicates:
+                  - Path=/mcdsService/**
